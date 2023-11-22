@@ -304,5 +304,5 @@ class Boy:
 
     # fill here
     def handle_collision(self, group, other):
-        
+
         pass
