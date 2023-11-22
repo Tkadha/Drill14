@@ -57,7 +57,7 @@ def time_out(e):
 
 # Boy Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
-RUN_SPEED_KMPH = 40.0  # Km / Hour
+RUN_SPEED_KMPH = 20.0  # Km / Hour
 RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
@@ -299,8 +299,10 @@ class Boy:
         pass
 
     def get_bb(self):
-        return self.x - 20, self.y - 50, self.x + 20, self.y + 50
+        sx, sy = self.x - self.bg.window_left, self.y - self.bg.window_bottom
+        return sx - 20, sy - 50, sx + 20, sy + 50
 
     # fill here
     def handle_collision(self, group, other):
+        
         pass

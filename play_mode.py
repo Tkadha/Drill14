@@ -8,9 +8,9 @@ import game_world
 
 import server
 from boy import Boy
-
+from ball import Ball
 # fill here
-from background import TileBackground as Background
+from background import FixedBackground as Background
 
 
 def handle_events():
@@ -31,8 +31,15 @@ def init():
 
     server.boy = Boy()
     game_world.add_object(server.boy, 1)
+    game_world.add_collision_pair('boy:ball', server.boy, None)
+    server.balls = [Ball() for _ in range(100)]
+    for server.ball in server.balls:
+        game_world.add_object(server.ball,1)
+        server.ball.set_background(server.background)
+        game_world.add_collision_pair('boy:ball', None, server.ball)
 
     server.boy.set_background(server.background)
+
     pass
 
 
