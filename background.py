@@ -9,22 +9,27 @@ class FixedBackground:
     def __init__(self):
         self.image = load_image('futsal_court.png')
         # fill here
+        self.cw = get_canvas_width()  # 화면 너비
+        self.ch = get_canvas_height()  # 화면 높이
+        self.w = self.image.w  # 배경의 너비
+        self.h = self.image.h  # 배경의 높이
         pass
 
     def draw(self):
         # fill here
+        self.image.clip_draw_to_origin(self.window_left, self.window_bottom, self.cw, self.ch, 0, 0)
         pass
 
     def update(self):
         # fill here
+        self.window_left = int(server.boy.x) - self.cw // 2
+        self.window_left = clamp(0, self.window_left, self.w - self.cw - 1)
+        self.window_bottom = int(server.boy.y) - self.ch // 2
+        self.window_bottom = clamp(0, self.window_bottom, self.h - self.ch - 1)
         pass
 
     def handle_event(self, event):
         pass
-
-
-
-
 
 
 class TileBackground:
@@ -36,8 +41,6 @@ class TileBackground:
         self.h = 600 * 3
 
         # fill here
-
-
 
     def update(self):
         pass
@@ -54,9 +57,6 @@ cx = 900 % 800
 cy = 700 // 600
 
 
-
-
-
 class InfiniteBackground:
 
     def __init__(self):
@@ -66,16 +66,13 @@ class InfiniteBackground:
         self.w = self.image.w
         self.h = self.image.h
 
-
-
     def draw(self):
-        self.image.clip_draw_to_origin(self.q3l, self.q3b, self.q3w, self.q3h, 0, 0)                        # quadrant 3
-        self.image.clip_draw_to_origin(self.q2l, self.q2b, self.q2w, self.q2h, 0, self.q3h)                 # quadrant 2
-        self.image.clip_draw_to_origin(self.q4l, self.q4b, self.q4w, self.q4h, self.q3w, 0)                 # quadrant 4
-        self.image.clip_draw_to_origin(self.q1l, self.q1b, self.q1w, self.q1h, self.q3w, self.q3h)          # quadrant 1
+        self.image.clip_draw_to_origin(self.q3l, self.q3b, self.q3w, self.q3h, 0, 0)  # quadrant 3
+        self.image.clip_draw_to_origin(self.q2l, self.q2b, self.q2w, self.q2h, 0, self.q3h)  # quadrant 2
+        self.image.clip_draw_to_origin(self.q4l, self.q4b, self.q4w, self.q4h, self.q3w, 0)  # quadrant 4
+        self.image.clip_draw_to_origin(self.q1l, self.q1b, self.q1w, self.q1h, self.q3w, self.q3h)  # quadrant 1
 
     def update(self):
-
         # quadrant 3
         self.q3l = (int(server.boy.x) - self.cw // 2) % self.w
         self.q3b = (int(server.boy.y) - self.ch // 2) % self.h
@@ -100,11 +97,5 @@ class InfiniteBackground:
         self.q1w = 0
         self.q1h = 0
 
-
     def handle_event(self, event):
         pass
-
-
-
-
-
